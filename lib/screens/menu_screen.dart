@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../theme/app_theme.dart';
+import 'profile_screen.dart';
+import 'investments_screen.dart';
+import 'nina_screen.dart';
 
 class MenuScreen extends StatelessWidget {
   final VoidCallback onClose;
@@ -24,11 +27,31 @@ class MenuScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 60),
-                  menuItem(FontAwesomeIcons.house, 'Início'),
-                  menuItem(FontAwesomeIcons.user, 'Perfil'),
-                  menuItem(FontAwesomeIcons.chartLine, 'Investimentos'),
-                  menuItem(FontAwesomeIcons.robot, 'Nina'),
-                  menuItem(FontAwesomeIcons.gear, 'Configurações'),
+                  menuItem(context, FontAwesomeIcons.house, 'Início', onClose),
+                  menuItem(context, FontAwesomeIcons.user, 'Perfil', () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ProfileScreen()),
+                    );
+                  }),
+                  menuItem(context, FontAwesomeIcons.chartLine, 'Investimentos',
+                      () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const InvestmentsScreen()),
+                    );
+                  }),
+                  menuItem(context, FontAwesomeIcons.robot, 'Nina', () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const NinaScreen()),
+                    );
+                  }),
+                  menuItem(
+                      context, FontAwesomeIcons.gear, 'Configurações', onClose),
                 ],
               ),
             ),
@@ -38,22 +61,26 @@ class MenuScreen extends StatelessWidget {
     );
   }
 
-  Widget menuItem(IconData icon, String title) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16.0),
-      child: Row(
-        children: [
-          Icon(icon, color: AppTheme.primaryColor),
-          const SizedBox(width: 16),
-          Text(
-            title,
-            style: TextStyle(
-              color: AppTheme.primaryColor,
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
+  Widget menuItem(
+      BuildContext context, IconData icon, String title, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16.0),
+        child: Row(
+          children: [
+            Icon(icon, color: AppTheme.primaryColor),
+            const SizedBox(width: 16),
+            Text(
+              title,
+              style: TextStyle(
+                color: AppTheme.primaryColor,
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

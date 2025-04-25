@@ -33,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Olá, Rodrigo!',
+                    'Olá',
                     style: TextStyle(
                       fontSize: 20,
                       color: Colors.white,
