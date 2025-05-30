@@ -1,96 +1,141 @@
 import 'package:flutter/material.dart';
-import '../theme/app_theme.dart';
 
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+void main() {
+  runApp(const PerfilApp());
+}
+
+class PerfilApp extends StatelessWidget {
+  const PerfilApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: const PerfilPage(),
+    );
+  }
+}
+
+class PerfilPage extends StatelessWidget {
+  const PerfilPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppTheme.primaryColor,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            children: [
-              const SizedBox(height: 20),
-              // Avatar
-              CircleAvatar(
-                radius: 50,
-                backgroundImage: AssetImage('assets/avatar.png'),
-                backgroundColor: Colors.white,
-              ),
-              const SizedBox(height: 16),
-              // Nome e e-mail
-              Text(
-                'Rodrigo Angelim',
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-              const SizedBox(height: 4),
-              const Text(
-                'usuario@email.com',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.white70,
-                ),
-              ),
-              const SizedBox(height: 32),
-              // Área de informações
-              Container(
-                decoration: BoxDecoration(
-                  color: AppTheme.lightGrey, // cinza conforme sua paleta
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Column(
-                  children: [
-                    _buildItem('Informações Pessoais'),
-                    _buildItem('Informações Financeiras'),
-                    _buildItem('Documentos'),
-                    _buildItem('Segurança'),
-                    _buildItem('Ajuda e Suporte'),
-                    _buildItem('Política de privacidade'),
-                  ],
-                ),
-              ),
-              const Spacer(),
-              // Botão sair menos arredondado
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () => Navigator.pop(context),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
-                    minimumSize: const Size(double.infinity, 50),
-                    shape: RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.circular(4), // bordas mais quadradas
-                    ),
-                  ),
-                  child: const Text('Sair'),
-                ),
-              )
-            ],
+      backgroundColor: const Color(0xFF23286B),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        centerTitle: true,
+        title: const Text(
+          'Perfil',
+          style: TextStyle(
+            color: Color(0xFF23286B),
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
           ),
         ),
       ),
+      body: Column(
+        children: [
+          const SizedBox(height: 20),
+          const CircleAvatar(
+            radius: 50,
+            backgroundColor: Colors.white,
+            child: Icon(
+              Icons.person,
+              size: 80,
+              color: Color(0xFF23286B),
+            ),
+          ),
+          const SizedBox(height: 10),
+          const Text(
+            'Rodrigo Angelim',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const Text(
+            'XXXXXXX@gmail.com',
+            style: TextStyle(
+              color: Colors.grey,
+              fontSize: 14,
+            ),
+          ),
+          const SizedBox(height: 20),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 20),
+            decoration: BoxDecoration(
+              color: Colors.grey[200],
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Column(
+              children: const [
+                PerfilItem(
+                    icon: Icons.person, text: 'Informações Pessoais'),
+                PerfilItem(
+                    icon: Icons.account_balance_wallet,
+                    text: 'Informações Financeiras'),
+                PerfilItem(icon: Icons.subscriptions, text: 'Assinatura'),
+                PerfilItem(
+                    icon: Icons.accessibility_new, text: 'Acessibilidade'),
+                PerfilItem(icon: Icons.data_usage, text: 'Open finance'),
+                PerfilItem(
+                    icon: Icons.privacy_tip, text: 'Política de privacidade'),
+              ],
+            ),
+          ),
+          const Spacer(),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.redAccent,
+                minimumSize: const Size(double.infinity, 50),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              onPressed: () {},
+              child: const Text(
+                'SAIR',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
+}
 
-  Widget _buildItem(String label) {
+class PerfilItem extends StatelessWidget {
+  final IconData icon;
+  final String text;
+
+  const PerfilItem({super.key, required this.icon, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
     return ListTile(
+      leading: Icon(icon, color: const Color(0xFF23286B)),
       title: Text(
-        label,
-        style: TextStyle(
-          color: AppTheme.primaryColor,
-          fontWeight: FontWeight.w500,
+        text,
+        style: const TextStyle(
+          color: Color(0xFF23286B),
+          fontWeight: FontWeight.w600,
         ),
       ),
-      trailing:
-          Icon(Icons.arrow_forward_ios, color: AppTheme.primaryColor, size: 16),
+      trailing: const Icon(
+        Icons.arrow_forward_ios,
+        size: 16,
+        color: Colors.grey,
+      ),
       onTap: () {},
     );
   }
