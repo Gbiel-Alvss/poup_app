@@ -8,6 +8,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  
+  charts_flutter: ^0.12.0
 
   # Ícones incríveis (menu, setas, etc.)
   font_awesome_flutter: ^10.7.0
